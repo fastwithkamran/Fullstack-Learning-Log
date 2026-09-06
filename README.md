@@ -12,7 +12,7 @@ Welcome to my Fullstack Web Development learning journey! This repository docume
 | `react_codes/` | Hooks, state, props, Fetch API
 | `node_codes/` | Modules, file handling, HTTP server
 | `express_codes/` | REST APIs, routing, middleware
-| `fastapi_codes/` | Python backend, REST APIs
+| `devOps/` | AWS Deployments, Docker & Orchestration
 
 ---
 
@@ -21,6 +21,7 @@ Welcome to my Fullstack Web Development learning journey! This repository docume
 - **Sigma Web Dev Course:** [YouTube Playlist](https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w)
 - **React Course:** [YouTube Playlist](https://www.youtube.com/playlist?list=PLu0W_9lII9agVZLNfnpaY2wgcufJBHPkh)
 - **Node.js Course:** [YouTube Playlist](https://www.youtube.com/playlist?list=PLu0W_9lII9agVZLNfnpaY2wgcufJBHPkh)
+- **DevOps Course:** [YouTube Playlist](https://www.youtube.com/playlist?list=PL_yEmchnldCPbxySt5lOA-aUvSAYDMQN4)
 - **MDN Web Docs:** [developer.mozilla.org](https://developer.mozilla.org)
 - **W3Schools:** [w3schools.com](https://www.w3schools.com)
 
