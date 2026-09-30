@@ -1,11 +1,8 @@
 import { useState } from "react";
-import {
-    FlatList,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import AddNoteModal from "../../../components/AddNoteModal";
+import NoteList from "../../../components/NoteList";
 
 const NoteScreen = () => {
   const [notes, setNotes] = useState([
@@ -13,21 +10,41 @@ const NoteScreen = () => {
     { id: "2", text: "Note Two" },
     { id: "3", text: "Note Three" },
   ]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newNote, setNewNote] = useState("");
+
+  //   Add new Note
+  const addNote = () => {
+    if (newNote.trim() === "") return;
+
+    setNotes((prevNotes) => [
+      ...prevNotes,
+      { id: Date.now.toString(), text: newNote },
+    ]);
+
+    setNewNote("");
+    setModalVisible(false);
+  };
   return (
     <View style={styles.container}>
-      <FlatList
-        data={notes}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.noteItem}>
-            <Text style={styles.noteText}>{item.text}</Text>
-          </View>
-        )}
-      />
+      <NoteList notes={notes} />
 
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => setModalVisible(true)}
+      >
         <Text style={styles.addButtonText}>+ Add Note</Text>
       </TouchableOpacity>
+
+      {/* Modal */}
+      <AddNoteModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        newNote={newNote}
+        setNewNote={setNewNote}
+        addNote={addNote}
+      />
     </View>
   );
 };
@@ -37,17 +54,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#fff",
-  },
-  noteItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#f5f5f5",
-    padding: 15,
-    borderRadius: 5,
-    marginVertical: 5,
-  },
-  noteText: {
-    fontSize: 18,
   },
   addButton: {
     position: "absolute",
