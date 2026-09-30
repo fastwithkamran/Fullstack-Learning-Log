@@ -1,11 +1,18 @@
 import image from "@/assets/images/welcome_img.png";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
-      <Text style={styles.text}>Hello World!</Text>
+      <Text style={styles.text}>To Notes App!</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push("/notes")}
+      >
+        <Text style={styles.buttonText}>Get Started</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -31,6 +38,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#333",
+  },
+  button: {
+    backgroundColor: "#007bff",
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 
