@@ -6,7 +6,13 @@ import NoteList from "@/components/NoteList";
 import noteService from "@/services/noteService";
 import { ActivityIndicator } from "react-native";
 
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "expo-router";
+
 const NoteScreen = () => {
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+
   const [notes, setNotes] = useState([]);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,9 +20,18 @@ const NoteScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Redirect to login if user is not signed up
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    if (!authLoading && !user) {
+      router.replace("/auth");
+    }
+  }, [user, authLoading]);
+
+  useEffect(() => {
+    if (user) {
+      fetchNotes();
+    }
+  }, [user]);
 
   const fetchNotes = async () => {
     setLoading(true);
