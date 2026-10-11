@@ -4,6 +4,7 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AddNoteModal from "@/components/AddNoteModal";
 import NoteList from "@/components/NoteList";
 import noteService from "@/services/noteService";
+import { ActivityIndicator } from "react-native";
 
 const NoteScreen = () => {
   const [notes, setNotes] = useState([]);
@@ -32,19 +33,24 @@ const NoteScreen = () => {
   };
 
   //   Add new Note
-  const addNote = () => {
+  const addNote = async () => {
     if (newNote.trim() === "") return;
 
-    setNotes((prevNotes) => [
-      ...prevNotes,
-      { id: Date.now.toString(), text: newNote },
-    ]);
+    const response = await noteService.addNote(newNote);
+
+    if (response?.error) Alert.alert("Error ", response.error);
+    else setNotes([...notes, response.data]);
 
     setNewNote("");
     setModalVisible(false);
   };
   return (
     <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator size="large" color="#007bff" />
+      ) : (
+        <>{error && <Text style={styles.errorText}>{error}</Text>}</>
+      )}
       <NoteList notes={notes} />
 
       <TouchableOpacity
@@ -86,6 +92,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  errorText: {
+    color: "red",
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 16,
   },
 });
 
