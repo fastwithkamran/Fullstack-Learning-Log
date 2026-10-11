@@ -24,6 +24,18 @@ const databaseService = {
     }
   },
 
+  // Update Document
+  async updateDocument(dbId, colId, id, data) {
+    try {
+      return await database.updateDocument(dbId, colId, id, data);
+    } catch (error) {
+      console.error(error.message);
+      return {
+        error: error.message,
+      };
+    }
+  },
+
   // Delete Document
   async deleteDocument(dbId, colId, id) {
     try {
